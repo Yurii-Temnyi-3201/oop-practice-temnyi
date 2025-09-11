@@ -1,0 +1,103 @@
+@startuml
+skinparam linetype ortho
+skinparam nodesep 50
+skinparam ranksep 60
+
+interface Viewable <<interface>> {
+    + getView(): View
+}
+
+interface View <<interface>> {
+    + viewHeader(): void
+    + viewBody(): void  
+    + viewFooter(): void
+    + viewShow(): void
+    + viewInit(): void
+    + viewSave(): void
+    + viewRestore(): void
+}
+
+class ViewableResistance {
+    + getView(): View
+}
+
+class ViewResistanceResult {
+    - FNAME: String
+    - DEFAULT_NUM: int
+    - items: ArrayList<ResistanceResult>
+    + ViewResistanceResult()
+    + ViewResistanceResult(n: int)
+    + init(stepCurrent: double): void
+    + viewInit(): void
+    + viewSave(): void
+    + viewRestore(): void
+    + viewHeader(): void
+    + viewBody(): void
+    + viewFooter(): void
+    + viewShow(): void
+    + getItems(): ArrayList<ResistanceResult>
+}
+
+class ResistanceResult {
+    - current: double
+    - voltage1: double
+    - voltage2: double
+    - voltage3: double
+    + ResistanceResult()
+    + setValues(): void
+    + getR1(): double
+    + getTotalResistance(): double
+    + toString(): String
+}
+
+class Main {
+    - view: View
+    + Main(view: View)
+    + menu(): void
+    + main(args: String[]): void
+}
+
+class MainTest {
+    + testCalc(): void
+    + testRestore(): void
+    + testZakonOma(): void
+}
+
+note top of Viewable
+Creator
+Шаблон проектування
+Factory Method який
+Оголошує метод
+"фабрикуючих" об'єктів.
+end note
+
+note top of View
+Product
+Шаблон проектування
+Factory Method який
+інтерфейс "фабрикуючих"
+об'єктів.
+end note
+
+note bottom of ViewableResistance
+ConcreteCreator
+Шаблон проектування
+Factory Method
+end note
+
+note bottom of ViewResistanceResult
+ConcreteProduct
+Виконання функцій,
+збереження та відображення
+результатів.
+end note
+
+' ВСІ СТРІЛКИ ЯК У ВИКЛАДАЧА - ПУНКТИРНІ ЗІ СТЕРЕОТИПАМИ:
+ViewableResistance ..> Viewable : <<instantiate>>
+ViewResistanceResult ..> View : <<instantiate>>
+ViewResistanceResult ..> ResistanceResult : <<Call, instantiate, import>>
+ViewableResistance ..> ViewResistanceResult : <<Call, instantiate>>
+Main ..> Viewable
+MainTest ..> ViewResistanceResult : <<Call, instantiate, import>>
+
+@enduml

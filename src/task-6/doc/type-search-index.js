@@ -1,0 +1,1 @@
+typeSearchIndex = [{"l":"All Classes and Interfaces","u":"allclasses-index.html"},{"p":"lab6","l":"AvgCommand"},{"p":"lab6","l":"CommandQueue"},{"p":"lab6","l":"ExecuteConsoleCommand"},{"p":"lab6","l":"Main"},{"p":"tests","l":"MainTest"},{"p":"lab6","l":"MaxCommand"},{"p":"lab6","l":"MinMaxCommand"},{"p":"lab6","l":"Queue"}];updateSearchResults();

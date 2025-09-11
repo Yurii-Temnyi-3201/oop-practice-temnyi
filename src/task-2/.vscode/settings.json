@@ -1,0 +1,9 @@
+{
+    "java.project.sourcePaths": [
+        "."
+    ],
+    "java.project.referencedLibraries": [
+        "c:\\Users\\Lenovo\\Desktop\\repository\\oop-practice-temnyi\\lib\\hamcrest-core-1.3.jar",
+        "c:\\Users\\Lenovo\\Desktop\\repository\\oop-practice-temnyi\\lib\\junit-4.13.2.jar"
+    ]
+}
