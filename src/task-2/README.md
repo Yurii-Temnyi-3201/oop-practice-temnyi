@@ -59,8 +59,8 @@ java -jar task2.jar
 ![Javadoc](Javadoc.png)
 
 ## Результати роботи
-![](program-1.png)!
-[](program1-1.png) 
+![](program-1.png)
+![](program1-1.png) 
 
 
 
