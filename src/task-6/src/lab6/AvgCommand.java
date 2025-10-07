@@ -50,24 +50,19 @@ public class AvgCommand implements Command {
         progress = 0;
         System.out.println("Average resistance calculation started...");
         result = 0.0;
-        
-        int idx = 1;
-        int size = viewResult.getItems().size();
-          //AvgCommand - обчислення середнього
-        for (ResistanceResult item : viewResult.getItems()) {
-            result += item.getTotalResistance();
-            progress = idx * 100 / size;
-         // MaxCommand - пошук максимуму
-            if (idx++ % (size / 2) == 0) {
-                System.out.println("Average progress: " + progress + "%");
-            }
-            try {
-                TimeUnit.MILLISECONDS.sleep(2000 / size);
+    int idx = 1;
+    int size = viewResult.getItems().size();
+    //AvgCommand - обчислення середнього
+    for (ResistanceResult item : viewResult.getItems()) {
+    	result += item.getTotalResistance();
+        progress = idx * 100 / size;
+    if (idx++ % (size / 2) == 0) {
+    	System.out.println("Average progress: " + progress + "%");}
+        try {TimeUnit.MILLISECONDS.sleep(2000 / size);
             } catch (InterruptedException e) {
-                System.err.println(e);
+             System.err.println(e);
             }
         }
-        
         result /= size;
         System.out.println("Average done. Result = " + String.format("%.2f Ом", result));
         progress = 100;

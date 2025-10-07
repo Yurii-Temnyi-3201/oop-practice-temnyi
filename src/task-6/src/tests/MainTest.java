@@ -10,7 +10,7 @@ import lab3.ViewResistanceResult;
 import lab6.CommandQueue;
 import lab6.MaxCommand;
 import lab6.AvgCommand;
-import lab6.MinMaxCommand;
+import lab6.MinCommand;
 
 /**
  * Клас для тестування функціональності паралельної обробки команд.
@@ -21,16 +21,17 @@ import lab6.MinMaxCommand;
  * @see CommandQueue
  * @see MaxCommand
  * @see AvgCommand
- * @see MinMaxCommand
+ * @see MinCommand
  */
 public class MainTest {
-	  /**
+    /**
      * Конструктор за замовчуванням.
      * Ініціалізує тестовий клас.
      */
     public MainTest() {
         // Конструктор за замовчуванням
     }
+    
     /** Колекція результатів для тестування */
     private static ViewResistanceResult view = new ViewResistanceResult();
     
@@ -46,11 +47,11 @@ public class MainTest {
     /** Друга команда обчислення середнього для виконання через чергу */
     private static AvgCommand avg2 = new AvgCommand(view);
     
-    /** Перша команда пошуку мін/макс для прямого виконання */
-    private static MinMaxCommand min1 = new MinMaxCommand(view);
+    /** Перша команда пошуку мінімуму для прямого виконання */
+    private static MinCommand min1 = new MinCommand(view);
     
-    /** Друга команда пошуку мін/макс для виконання через чергу */
-    private static MinMaxCommand min2 = new MinMaxCommand(view);
+    /** Друга команда пошуку мінімуму для виконання через чергу */
+    private static MinCommand min2 = new MinCommand(view);
     
     /** Черга команд для тестування Worker Thread */
     private CommandQueue queue = new CommandQueue();
@@ -80,10 +81,8 @@ public class MainTest {
                     max1.getResult(), max2.getResult());
         assertEquals("Результати AvgCommand повинні співпадати", 
                     avg1.getResult(), avg2.getResult(), .1e-10);
-        assertEquals("Результати MinMaxCommand (Max) повинні співпадати", 
-                    min1.getResultMax(), min2.getResultMax());
-        assertEquals("Результати MinMaxCommand (Min) повинні співпадати", 
-                    min1.getResultMin(), min2.getResultMin());
+        assertEquals("Результати MinCommand повинні співпадати", 
+                    min1.getResult(), min2.getResult());
         System.out.println("=== Всі тести завершено успішно ===");
     }
     
@@ -118,17 +117,17 @@ public class MainTest {
     }
     
     /**
-     * Тест прямого виконання команди пошуку мінімуму та максимуму за критерієм.
-     * Перевіряє коректність роботи алгоритму умовного пошуку.
+     * Тест прямого виконання команди пошуку мінімального опору.
+     * Перевіряє коректність роботи алгоритму пошуку мінімуму.
      * 
      * @throws AssertionError якщо результат некоректний
      */
     @Test
     public void testMin() {
-        System.out.println("Тестування MinMaxCommand...");
+        System.out.println("Тестування MinCommand...");
         min1.execute();
-        assertTrue("Повинен бути знайдений хоча б один результат", 
-                  min1.getResultMin() > -1 || min1.getResultMax() > -1);
+        assertTrue("Індекс мінімального елемента повинен бути >= 0", 
+                  min1.getResult() > -1);
         System.out.println("✓ testMin пройдено успішно");
     }
     
@@ -178,14 +177,14 @@ public class MainTest {
     }
     
     /**
-     * Тест виконання команди MinMaxCommand через чергу команд.
-     * Перевіряє коректність роботи Worker Thread pattern з командою умовного пошуку.
+     * Тест виконання команди MinCommand через чергу команд.
+     * Перевіряє коректність роботи Worker Thread pattern з командою пошуку мінімуму.
      * 
      * @throws AssertionError якщо тест не вдався
      */
     @Test
     public void testMinQueue() {
-        System.out.println("Тестування MinMaxCommand через чергу...");
+        System.out.println("Тестування MinCommand через чергу...");
         CommandQueue queue3 = new CommandQueue();
         queue3.put(min2);
         try {
